@@ -1,5 +1,10 @@
 package cc.openhome;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Writer;
 import java.sql.*;
 import java.util.Vector;
 
@@ -15,6 +20,7 @@ public class libSVMdemo {
 	//建構子
 	public libSVMdemo(String path) {
 //	    this();
+        
 	    this.path = path;
         _param = new svm_parameter();
         
@@ -60,11 +66,14 @@ public class libSVMdemo {
 			Statement stat = conn.createStatement();
 			ResultSet rs = stat.executeQuery("SELECT * FROM data"+limit);
 			
+			
+			
+			
 			while (rs.next()) {
 				vy.addElement(rs.getDouble("label"));
-				
 				int rdk1 = rs.getInt("rdk1"), rdk2 = rs.getInt("rdk2");
-				if(rdk1 == rdk2){	//���index�۵��u��@��
+//				System.out.println("rdk1 :" + rdk1);
+				if(rdk1 == rdk2){	//兩個index相等只放一個
 					svm_node[] x = new svm_node[1];
 					x[0] = new svm_node();
 					x[0].index = rdk1;
@@ -72,7 +81,7 @@ public class libSVMdemo {
 					max_index = Math.max(max_index, rdk1);
 					vx.addElement(x);
 				}else{
-					if(rdk2 < rdk1){	//�p�G�ĤG��index��Ĥ@�Ӥp�A�洫
+					if(rdk2 < rdk1){	//如果第二個index比第一個小，交換
 						rdk1 = rdk2;
 						rdk2 = rs.getInt("rdk1");
 					}
@@ -196,5 +205,6 @@ public class libSVMdemo {
 	
 	public static void main(String[] args) {
 		libSVMdemo ld = new libSVMdemo();
+		
 	}
 }

@@ -40,9 +40,8 @@ public class HelloServlet extends HttpServlet {
         libSVMdemo ld = new libSVMdemo(request.getRealPath("") + "/sparseData.s3db");
 //        map.put("accuracy", ld.testReturn());
         
-        //json ������
+        //json object
 //        JSONObject map_json = new JSONObject(map);
-//        response.setContentType("text/html;charset=UTF-8");
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
