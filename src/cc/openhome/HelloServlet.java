@@ -40,6 +40,7 @@ public class HelloServlet extends HttpServlet {
         //get svm return
         libSVMdemo ld = new libSVMdemo(request.getRealPath("") + "/sparseData.s3db");
         
+        //寫檔案
         try {
             //傳入 WriteTxt
             WriteTxt txt = new WriteTxt();
@@ -49,16 +50,17 @@ public class HelloServlet extends HttpServlet {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-//        System.out.println(TestEcho.test("fjdlkafjldkjals;"));
-//        map.put("accuracy", ld.testReturn());
         
         //json object
 //        JSONObject map_json = new JSONObject(map);
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
+        //接收參數值
         String seg = new String(request.getParameter("seg").getBytes("ISO-8859-1"), "UTF-8");
         System.out.println(seg);
+        String user = new String(request.getParameter("user").getBytes("ISO-8859-1"), "UTF-8");
+        System.out.println(user);
         
 //        String echo = TestEcho.test("XD");
 //        TestEcho echo = new TestEcho();

@@ -16,7 +16,7 @@ public class getUsr extends HttpServlet {
 //        seg.run();
         HashMap<String, Object> map = new HashMap<String, Object>();
         String gusr = new String(req.getParameter("gusr").getBytes("ISO-8859-1"), "UTF-8");
-        System.out.println(gusr);
+//        System.out.println(gusr);
         map.put("readline", gusr);
         JSONObject map_json = new JSONObject(map);
         resp.setContentType("application/json;charset=UTF-8");
