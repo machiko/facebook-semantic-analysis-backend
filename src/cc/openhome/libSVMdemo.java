@@ -6,12 +6,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Writer;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Vector;
 
 import libsvm.*;
 
 public class libSVMdemo {
-	svm_parameter _param;
+	private static final int ArrayList = 0;
+    svm_parameter _param;
 	svm_problem _prob;
 	String _model_file;
 	
@@ -45,6 +48,39 @@ public class libSVMdemo {
         testReturn();
 	}
 	
+	public ArrayList<HashMap<String, Object>> selectSVM() throws ClassNotFoundException, SQLException {
+	    Class.forName("org.sqlite.JDBC");
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:" + path);
+        Statement stat = conn.createStatement();
+        ResultSet rs = stat.executeQuery("SELECT * FROM data");
+        
+        ArrayList<HashMap<String, Object>> svm_list = new ArrayList<HashMap<String,Object>>();
+        
+        ResultSetMetaData metaData = rs.getMetaData();
+        //宣告 meta list 儲存 meta key
+        ArrayList<String> meta_list = new ArrayList<String>();
+        for (int i = 2; i <= metaData.getColumnCount(); i++) {
+            String name = metaData.getColumnName(i);
+            meta_list.add(name);
+          }
+//        System.out.println(meta_list);
+        
+        
+        while (rs.next()) {
+            HashMap<String, Object> hash_data = new HashMap<String, Object>();
+            for (String meta : meta_list) {
+                System.out.println(rs.getString(meta));
+                hash_data.put(meta, rs.getString(meta));
+            }
+            svm_list.add(hash_data);
+        }
+        
+//        System.out.println(svm_list);
+        
+        stat.close();
+	    return svm_list; 
+	}
+	
 	protected void loadData(boolean is_training){
 		String limit;
 		if(is_training){	//training
@@ -65,9 +101,7 @@ public class libSVMdemo {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + path);
 			Statement stat = conn.createStatement();
 			ResultSet rs = stat.executeQuery("SELECT * FROM data"+limit);
-			
-			
-			
+	        
 			
 			while (rs.next()) {
 				vy.addElement(rs.getDouble("label"));

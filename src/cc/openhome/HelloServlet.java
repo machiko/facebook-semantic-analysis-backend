@@ -38,6 +38,17 @@ public class HelloServlet extends HttpServlet {
         
         //get svm return
         libSVMdemo ld = new libSVMdemo(request.getRealPath("") + "/sparseData.s3db");
+        
+        try {
+            //傳入 WriteTxt
+            WriteTxt txt = new WriteTxt();
+            txt.input(request.getRealPath(""), ld.selectSVM());
+//            System.out.println(ld.selectSVM());
+        } catch (ClassNotFoundException | SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+//        System.out.println(TestEcho.test("fjdlkafjldkjals;"));
 //        map.put("accuracy", ld.testReturn());
         
         //json object
