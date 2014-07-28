@@ -57,8 +57,8 @@ public class HelloServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        String name = request.getParameter("seg");
-        System.out.println(name);
+        String seg = new String(request.getParameter("seg").getBytes("ISO-8859-1"), "UTF-8");
+        System.out.println(seg);
         
 //        String echo = TestEcho.test("XD");
 //        TestEcho echo = new TestEcho();
