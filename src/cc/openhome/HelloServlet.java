@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
@@ -56,7 +57,9 @@ public class HelloServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        String name = request.getParameter("name");
+        String name = request.getParameter("seg");
+        System.out.println(name);
+        
 //        String echo = TestEcho.test("XD");
 //        TestEcho echo = new TestEcho();
         

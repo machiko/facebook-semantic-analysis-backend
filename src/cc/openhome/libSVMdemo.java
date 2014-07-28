@@ -69,7 +69,7 @@ public class libSVMdemo {
         while (rs.next()) {
             HashMap<String, Object> hash_data = new HashMap<String, Object>();
             for (String meta : meta_list) {
-                System.out.println(rs.getString(meta));
+//                System.out.println(rs.getString(meta));
                 hash_data.put(meta, rs.getString(meta));
             }
             svm_list.add(hash_data);
