@@ -64,6 +64,9 @@ public class HelloServlet extends HttpServlet {
         System.out.println(seg);
         String user = new String(request.getParameter("user").getBytes("ISO-8859-1"), "UTF-8");
         System.out.println(user);
+        String keycode = new String(request.getParameter("keycode").getBytes("ISO-8859-1"), "UTF-8");
+        //0~9 的 keycode 為 48~57
+        System.out.println("按鍵接收 : " + keycode);
         SegChinese sgc = new SegChinese();
         String segWd = sgc.segWords(seg, "  ");
         String[] splitArr = segWd.split("\\s+");        
